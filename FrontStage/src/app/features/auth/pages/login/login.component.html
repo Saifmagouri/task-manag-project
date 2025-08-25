@@ -1,0 +1,78 @@
+<div class="auth-wrap">
+  <mat-card class="card mat-elevation-z8">
+    <header class="card-head">
+      <div class="brand">
+        <span class="dot"></span>
+        <div>
+          <h2>Bienvenue</h2>
+          <p>Connectez-vous pour continuer</p>
+        </div>
+      </div>
+    </header>
+
+    <mat-divider></mat-divider>
+
+    <!-- ⬇️ You were missing this opening tag -->
+    <mat-card-content>
+
+      <!-- ⬇️ And you were missing this opening <form> -->
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form" aria-describedby="login-help">
+
+        <!-- Username -->
+        <mat-form-field appearance="outline" class="full field-white">
+  <mat-label>Nom d’utilisateur</mat-label>
+  <input matInput formControlName="username" autocomplete="username" placeholder="Enter your username" />
+  <button mat-icon-button matSuffix type="button" (click)="fillDefaults()">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-form-field>
+
+       <!-- Password -->
+<mat-form-field appearance="outline" class="full field-white" subscriptSizing="dynamic">
+  <mat-label>Mot de passe</mat-label>
+  <input
+    matInput
+    [type]="hide ? 'password' : 'text'"
+    formControlName="password"
+    autocomplete="current-password"
+    placeholder="Enter your password"
+  />
+  <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+          [attr.aria-label]="hide ? 'Afficher' : 'Masquer'">
+    <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+  </button>
+</mat-form-field>
+
+
+        <div class="row">
+          <mat-checkbox formControlName="remember">Se souvenir de moi</mat-checkbox>
+          <a class="link" href="#" (click)="$event.preventDefault()">Mot de passe oublié ?</a>
+        </div>
+
+        <button mat-raised-button color="primary" class="full btn-lg" type="submit" [disabled]="form.invalid || loading">
+          <ng-container *ngIf="!loading">Se connecter</ng-container>
+          <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+        </button>
+
+        <div class="error" *ngIf="error" aria-live="assertive">{{ error }}</div>
+      </form>
+      <!-- ⬆️ Make sure the closing </form> now matches the opening one -->
+
+      <!-- Default login helper -->
+      <section id="login-help" class="helper">
+        <div class="helper-head">
+          <mat-icon>info</mat-icon>
+          <strong>Default login</strong>
+          <span class="spacer"></span>
+          <button mat-stroked-button color="primary" (click)="fillDefaults()">Use defaults</button>
+        </div>
+        <div class="helper-grid">
+          <div class="pair"><span>username</span><code>superadmin</code></div>
+          <div class="pair"><span>password</span><code>superadmin</code></div>
+        </div>
+      </section>
+
+    </mat-card-content>
+    <!-- ⬆️ Now this matches the opening <mat-card-content> -->
+  </mat-card>
+</div>

@@ -1,0 +1,67 @@
+<div class="page" *ngIf="!loading(); else skel">
+  <header class="header">
+    <h1>Manage Accounts</h1>
+    <p class="sub">Add, search, and manage user access</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search">
+      <input [ngModel]="q()" (ngModelChange)="q.set($event)" placeholder="Search users..." />
+      <button class="btn ghost" (click)="q.set('')">Clear</button>
+    </div>
+    <button class="btn primary" (click)="showAdd.set(true)">Add User</button>
+  </div>
+
+  <section class="card">
+    <table class="table">
+      <thead>
+        <tr><th style="width:72px">#</th><th>Username</th><th style="width:140px">Role</th><th style="width:140px">Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of filtered()">
+          <td>{{u.id}}</td>
+          <td>{{u.username}}</td>
+          <td><span class="tag" [class.admin]="u.role==='ADMIN'">{{u.role}}</span></td>
+          <td class="actions">
+            <button class="btn danger" (click)="deleteUser(u)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="filtered().length === 0"><td colspan="4" class="muted">No users</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Add modal -->
+  <div class="modal" *ngIf="showAdd()">
+    <div class="dialog">
+      <div class="dialog-head">
+        <h3>Add User</h3>
+        <button class="icon" (click)="showAdd.set(false)">✕</button>
+      </div>
+      <form [formGroup]="addForm" (ngSubmit)="addUser()" class="form">
+        <label>Username</label>
+        <input formControlName="username" />
+        <label>Password</label>
+        <input formControlName="password" type="password" />
+        <label>Role</label>
+<div class="select">
+  <select formControlName="role" class="nice-select">
+    <option value="USER">USER</option>
+    <option value="ADMIN">ADMIN</option>
+  </select>
+</div>
+        <div class="dialog-actions">
+          <button type="button" class="btn ghost" (click)="showAdd.set(false)">Cancel</button>
+          <button type="submit" class="btn primary" [disabled]="addForm.invalid">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" *ngIf="toast()">{{ toast() }}</div>
+  <p class="error" *ngIf="err()">{{ err() }}</p>
+</div>
+
+<ng-template #skel>
+  <div class="page"><div class="skeleton"></div></div>
+</ng-template>

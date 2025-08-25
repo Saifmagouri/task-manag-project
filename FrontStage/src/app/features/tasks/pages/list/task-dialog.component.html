@@ -1,0 +1,50 @@
+<div class="dialoge">
+  <!-- DELETE MODE -->
+  <ng-container *ngIf="isDelete; else formMode">
+    <section class="delete-container">
+      <mat-icon class="delete-icon" color="warn">delete</mat-icon>
+      <h3>Confirmer</h3>
+      <p>Supprimer « <strong>{{ data.task?.title }}</strong> » ?</p>
+      <div class="delete-actions">
+        <button mat-stroked-button (click)="closeDialog()">Annuler</button>
+        <button mat-flat-button color="warn" (click)="closeDialog({ delete: true })">Supprimer</button>
+      </div>
+    </section>
+  </ng-container>
+
+  <!-- CREATE / EDIT MODE -->
+  <ng-template #formMode>
+    <header class="head">
+      <h3>{{ isEdit ? 'Modifier la tâche' : 'Nouvelle tâche' }}</h3>
+      <p>Un titre clair et, si besoin, un bref descriptif.</p>
+    </header>
+
+    <section class="body" mat-dialog-content>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="grid">
+        <div class="field-label">TITRE <span class="req"></span></div>
+        <mat-form-field appearance="outline" class="full fixed-outline">
+          <input style="color: white;" matInput formControlName="title" placeholder="Ex. Préparer la réunion" maxlength="80" />
+          <mat-hint align="end">{{ (form.controls.title.value || '').length }}/80</mat-hint>
+        </mat-form-field>
+
+        <div class="field-label">DESCRIPTION</div>
+        <mat-form-field appearance="outline" class="full fixed-outline">
+          <textarea style="color: white;" matInput rows="4" formControlName="description" placeholder="Détails, liens ou prochaines étapes…" maxlength="240"></textarea>
+          <mat-hint align="end">{{ (form.controls.description.value || '').length }}/240</mat-hint>
+        </mat-form-field>
+
+        <div class="status" *ngIf="isEdit">
+          <mat-slide-toggle  styformControlName="completed">Marquer comme terminé</mat-slide-toggle>
+        </div>
+      </form>
+    </section>
+
+    <footer class="foot" mat-dialog-actions>
+      <button mat-stroked-button mat-dialog-close [disabled]="saving">Annuler</button>
+      <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid || saving">
+        <ng-container *ngIf="!saving">{{ isEdit ? 'Enregistrer' : 'Créer' }}</ng-container>
+        <mat-progress-spinner *ngIf="saving" mode="indeterminate" diameter="18"></mat-progress-spinner>
+      </button>
+    </footer>
+  </ng-template>
+</div>

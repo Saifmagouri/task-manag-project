@@ -1,0 +1,114 @@
+/* Theme tokens */
+:host {
+  --bg: #0e0f12;
+  --card: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.06);
+  --text: #e8e8ea;
+  --muted: #9aa0a6;
+  --primary: #5b8cff;
+  --primary-2: #7aa2ff;
+  --danger: #ff7171;
+  --success: #55d788;
+}
+
+/* Layout */
+.page { max-width: 980px; margin: 40px auto; padding: 0 16px; color: var(--text); }
+.head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 20px;
+  color: #fff; background: linear-gradient(135deg, #4f46e5, #22c1c3);
+  box-shadow: 0 8px 24px rgba(79,70,229,.35);
+}
+.titles h1 { margin: 0; font-size: 26px; letter-spacing: .2px; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 860px){ .grid { grid-template-columns: 1fr 1fr; } }
+
+.card {
+  position: relative;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.25);
+}
+.card h2 {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0 0 12px; font-size: 16px; letter-spacing: .2px;
+}
+.icon { display: grid; place-items: center; width: 28px; height: 28px; background: #1b1c21; border-radius: 8px; color: #cbd5ff; }
+
+/* Forms */
+.form { display: grid; gap: 10px; }
+label { font-size: 12px; color: var(--muted); }
+
+.input {
+  display: grid; align-items: center;
+  grid-template-columns: 1fr auto; gap: 8px;
+  padding: 4px; border-radius: 12px;
+  background: #121317; border: 1px solid #22242c;
+  transition: border-color .2s, box-shadow .2s;
+}
+.input:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(91,140,255,.12); }
+.input input {
+  background: transparent; color: var(--text);
+  border: 0; outline: 0; padding: 10px 12px; font-size: 14px;
+}
+.input.with-icon input { padding-right: 0; }
+.icon-btn {
+  background: #101117; border: 1px solid #22242c; border-radius: 10px;
+  width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer;
+  transition: transform .08s ease, border-color .2s, background .2s;
+}
+.icon-btn:hover { border-color: #2b2f39; }
+.icon-btn:active { transform: scale(.98); }
+.icon-btn svg { width: 18px; height: 18px; fill: #9aa0a6; }
+
+.actions { display: flex; justify-content: flex-end; margin-top: 6px; }
+.btn {
+  border: 0; border-radius: 12px; padding: 10px 14px; font-weight: 600; cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s, background .2s;
+}
+.btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; }
+.btn.primary:hover { box-shadow: 0 10px 24px rgba(91,140,255,.35); }
+.btn:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+
+/* Password strength */
+.strength { display: flex; align-items: center; gap: 10px; margin: 2px 0 6px; }
+.strength .bar {
+  flex: 1; height: 10px; border-radius: 999px; background: #1c1e24; position: relative; overflow: hidden;
+}
+.strength .bar::after {
+  content:""; position: absolute; inset: 0; width: 0%; border-radius: 999px;
+  background: linear-gradient(90deg,#ff6b6b,#ffd166,#8bd17c,#55d788);
+  transition: width .25s ease;
+}
+.strength .bar.s1::after { width: 25%; }
+.strength .bar.s2::after { width: 50%; }
+.strength .bar.s3::after { width: 75%; }
+.strength .bar.s4::after { width: 100%; }
+.strength .label { font-size: 12px; color: var(--muted); }
+
+/* Messages */
+.hint { font-size: 12px; }
+.hint.error { color: var(--danger); }
+
+.toast {
+  position: fixed; right: 18px; bottom: 18px;
+  padding: 12px 14px; border-radius: 12px; backdrop-filter: blur(6px);
+  border: 1px solid var(--card-border); box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  animation: fadeIn .2s ease-out;
+}
+.toast.success { background: rgba(85,215,136,.12); color: #b7f5d1; border-color: rgba(85,215,136,.25); }
+.toast.danger  { background: rgba(255,113,113,.12); color: #ffd1d1; border-color: rgba(255,113,113,.25); }
+@keyframes fadeIn { from { transform: translateY(8px); opacity: .0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Skeletons */
+.sk { background: linear-gradient(90deg,#1a1c22 25%,#22252c 37%,#1a1c22 63%); background-size: 400% 100%; animation: shimmer 1.2s infinite; }
+.sk-line { width: 260px; height: 16px; border-radius: 6px; margin: 4px 0; }
+.sk-line.short { width: 180px; }
+.sk-card { height: 180px; }
+@keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:0 0} }

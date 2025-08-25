@@ -1,0 +1,281 @@
+:host {
+  --surface: #14171c;
+  --panel: #1b1f25;
+  --row: #1e232b;
+  --rowHover: #232a34;
+  --ring: #2c3443;
+  --text: #e9edf3;
+  --muted: #a5afbf;
+  --primary: #5b8cff;
+  --ok: #3bd29f;
+  --info: #56b1ff;
+}
+
+.page { max-width: 1080px; margin: 28px auto; padding: 0 16px; color: var(--text); }
+
+/* TOP BAR */
+.top{
+  display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px 16px; margin-bottom:12px;
+  .left{ display:flex; gap:12px; align-items:center;
+    .logo{ width:40px; height:40px; border-radius:12px; background:#243247; display:grid; place-items:center; }
+    h2{ margin:0; font-weight:800; letter-spacing:.2px; }
+    .muted{ color:var(--muted); font-size:12px; }
+  }
+  .right{ display:flex; gap:10px; align-items:center;
+    .search{ width:340px;position: relative;
+  top: 8px; }
+    .filters .mat-button-toggle{ padding:0 10px; border-radius:10px; }
+    .chip-btn{ border-radius:10px; }
+  }
+}
+
+/* TABLE */
+.table{
+  border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden; background:transparent;
+
+  .row{ display:grid; grid-template-columns:1.6fr 1.4fr .8fr .5fr; align-items:center; gap:10px; padding:12px 14px; }
+  .head{ background:rgba(255,255,255,.03); color:var(--muted); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.35px; }
+
+  .item{ background:var(--row); border-top:1px solid rgba(255,255,255,.06);
+    &:hover{ background:var(--rowHover); }
+  }
+
+  .title{ display:flex; gap:10px; align-items:center; overflow:hidden;
+    .dot{ width:9px; height:9px; border-radius:50%; background:var(--info); }
+    .dot.done{ background:var(--ok); }
+    .txt{ font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  }
+  .desc{ color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .actions{ display:flex; gap:4px; justify-content:flex-end; }
+}
+
+/* STATUS PILL */
+.status-pill{
+  height:28px; padding:0 12px; border-radius:999px; line-height:28px; font-weight:700; font-size:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02); color:var(--text);
+  display:inline-flex; align-items:center; gap:6px;
+  .s-18{ font-size:18px; width:18px; height:18px; }
+  &.open{ background:rgba(86,177,255,.10); color:#cfe6ff; border-color:rgba(86,177,255,.25); }
+  &.done{ background:rgba(59,210,159,.14); color:#c8f3e6; border-color:rgba(59,210,159,.28); }
+}
+
+/* Material outline for dark */
+.mat-mdc-form-field{
+  --mdc-outlined-text-field-outline-color: #2b3346;
+  --mdc-outlined-text-field-hover-outline-color: #3a4257;
+  --mdc-outlined-text-field-focus-outline-color: var(--primary);
+}
+
+/* States */
+.state{ margin:22px 0; display:grid; place-items:center; gap:8px; color:var(--muted); }
+.state.err{ color:#ff8b8b; }
+
+/* Responsive */
+@media (max-width: 920px){
+  .top{ grid-template-columns:1fr; }
+  .right{ flex-wrap:wrap; }
+  .table .row{ grid-template-columns: 1fr; gap:6px; }
+  .table .head{ display:none; }
+}
+
+/* Make search input text readable and the field stand out */
+/* SEARCH — fixed grey outline in all states, no color change */
+.search {
+  width: 340px;
+  position: relative;
+  top: 8px; /* keep it slightly lower */
+
+  /* background + radius */
+  .mat-mdc-text-field-wrapper {
+    background: #141821;
+    border-radius: 10px;
+    box-shadow: none !important;
+  }
+}
+
+/* pierce view-encapsulation to lock the outline color */
+:host ::ng-deep .search .mat-mdc-form-field {
+  /* use the same color for all states */
+  --mdc-outlined-text-field-outline-width: 1.5px;
+  --mdc-outlined-text-field-outline-color: #8a93a6;
+  --mdc-outlined-text-field-hover-outline-color: #8a93a6;
+  --mdc-outlined-text-field-focus-outline-color: #8a93a6;
+}
+
+/* ensure the three outline pieces never turn blue */
+:host ::ng-deep .search .mdc-notched-outline__leading,
+:host ::ng-deep .search .mdc-notched-outline__trailing,
+:host ::ng-deep .search .mdc-notched-outline__notch {
+  border-color: #8a93a6 !important;
+}
+:host ::ng-deep .search.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+:host ::ng-deep .search.mat-mdc-form-field:hover .mdc-notched-outline__trailing,
+:host ::ng-deep .search.mat-mdc-form-field:hover .mdc-notched-outline__notch,
+:host ::ng-deep .search.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+:host ::ng-deep .search.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+:host ::ng-deep .search.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch {
+  border-color: #8a93a6 !important;
+}
+
+/* readable text & icons (unchanged) */
+:host ::ng-deep .search .mat-mdc-input-element { color:#eef2f8 !important; caret-color:#eef2f8; font-weight:500; }
+:host ::ng-deep .search .mat-mdc-input-element::placeholder { color:rgba(238,242,248,.72); opacity:1; }
+:host ::ng-deep .search .mat-mdc-form-field-icon-prefix,
+:host ::ng-deep .search .mat-mdc-form-field-icon-suffix { color:rgba(238,242,248,.75); }
+
+/* optional: keep autofill dark */
+:host ::ng-deep .search input:-webkit-autofill,
+:host ::ng-deep .search input:-webkit-autofill:hover,
+:host ::ng-deep .search input:-webkit-autofill:focus {
+  -webkit-text-fill-color:#eef2f8;
+  -webkit-box-shadow:0 0 0 1000px #141821 inset;
+  caret-color:#eef2f8;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+
+/* Segmented control look for the filters */
+.filters.segmented {
+  /* container */
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #141821;
+  border: 1px solid #2b3346;
+
+  /* each pill */
+  .mat-button-toggle {
+    border: 0;
+    border-radius: 999px !important;
+    overflow: hidden;
+    /* remove default segmented borders */
+    & + .mat-button-toggle { border-left: 0; }
+  }
+
+  .mat-button-toggle-button {
+    padding: 8px 12px;
+  }
+
+  .mat-button-toggle .mat-button-toggle-label-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0; /* we control padding on the button */
+    color: #cbd3df;
+    font-weight: 600;
+    letter-spacing: .2px;
+  }
+
+  /* icons & small dot */
+  mat-icon { font-size: 18px; width: 18px; height: 18px; opacity: .9; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #7ab8ff;
+    &.open { background: #3ea6ff; }
+  }
+
+  /* subtle hover */
+  .mat-button-toggle:hover {
+    background: rgba(255,255,255,.03);
+  }
+
+  /* focus ring (keyboard) */
+  .mat-button-toggle.cdk-keyboard-focused,
+  .mat-button-toggle.cdk-program-focused {
+    box-shadow: 0 0 0 2px rgba(91,140,255,.35) inset;
+  }
+
+  /* selected (common) */
+  .mat-button-toggle-checked {
+    .mat-button-toggle-label-content { color: #ffffff; }
+    mat-icon { opacity: 1; }
+    .badge { background: rgba(0,0,0,.25); color: #fff; }
+  }
+
+  /* per-pill tint when selected */
+  .pill-all.mat-button-toggle-checked   { background: #2c3450; border-color: #394569; }
+  .pill-open.mat-button-toggle-checked  { background: rgba(62,166,255,.16); border-color: #3ea6ff40; }
+  .pill-done.mat-button-toggle-checked  { background: rgba(80,209,160,.18); border-color: #50d1a040; }
+
+  /* badges (counts) */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #cbd3df;
+    background: rgba(255,255,255,.08);
+  }
+}
+
+
+
+/* Segmented group container */
+.filters.segmented .mat-button-toggle-group {
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);      /* subtle strip behind pills */
+  padding: 4px;
+}
+
+/* Base pill look (unselected) */
+.filters.segmented .mat-button-toggle {
+  border-radius: 999px !important;
+  color: #e9edf7;                          /* brighter text */
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  padding: 6px 12px;
+}
+.filters.segmented .mat-button-toggle:hover {
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.18);
+}
+
+/* Selected states — clear, saturated, readable */
+.filters.segmented .mat-button-toggle-checked.pill-all  {
+  background: #2d4c93;                     /* strong blue */
+  color: #ffffff;
+  border-color: #3e6bda;
+  box-shadow: 0 0 0 2px rgba(61,116,232,.25) inset;
+}
+.filters.segmented .mat-button-toggle-checked.pill-open { background: rgba(62,166,255,.16); border-color: #3ea6ff40; }
+.filters.segmented .mat-button-toggle-checked.pill-done { background: rgba(80,209,160,.18); border-color: #50d1a040; }
+
+/* Make the icons (if any) and text inside pills always readable */
+.filters.segmented .mat-button-toggle .mat-icon {
+  font-size: 18px;
+  width: 18px; height: 18px;
+  margin-right: 6px;
+  opacity: .95;                             /* ensure it’s not too faint */
+}
+
+/* Remove any leftover counters if they still exist in DOM */
+.filters.segmented .badge { display: none !important; }
+
+/* Hide the tiny checkbox inside the filter pills */
+.filters .mat-button-toggle-checkbox-wrapper {
+  display: none !important;
+}
+
+/* (optional) tighten the label spacing after removing the checkbox */
+.filters .mat-button-toggle-label-content {
+  padding-left: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+:host ::ng-deep .filters .mat-button-toggle-checkbox-wrapper { 
+  display: none !important; 
+}
+:host ::ng-deep .filters .mat-button-toggle-label-content {
+  padding-left: 0 !important;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.filters .dot.all { display: none !important; }
+.filters .dot.open { display: none !important; }
+.filters .dot.done { display: none !important; }

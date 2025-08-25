@@ -1,0 +1,65 @@
+.dialoge {
+  width: 440px;
+  max-width: min(92vw, 560px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #1f2024;
+  border: 1px solid #2c2f36;
+  border-radius: 14px;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+
+  /* Align system tokens with your dark surface (optional) */
+  --mat-sys-surface: #1f2024;
+  --mat-sys-on-surface: #ffffff;
+
+  .head {
+    padding: 20px 24px 10px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+    h3 { margin: 0; font-size: 20px; font-weight: 700; color: #fff; }
+    p  { margin-top: 4px; font-size: 13px; color: #ccc; }
+  }
+
+  .body {
+    padding: 16px 24px;
+
+    .grid { display: flex; flex-direction: column; gap: 14px; }
+
+    .field-label { font-weight: 600; font-size: 13px; color: #fff; }
+    mat-hint     { color: #fff !important; }
+
+    /* Optional: better switch colors on dark */
+    .status .mat-mdc-slide-toggle {
+      --mdc-switch-selected-track-color: #3a3b40;
+      --mdc-switch-selected-handle-color: #ffffff;
+      --mdc-switch-unselected-track-color: #303239;
+      --mdc-switch-unselected-handle-color: #ffffff;
+
+      --mdc-switch-disabled-selected-track-color: #2a2b30;
+      --mdc-switch-disabled-selected-handle-color: #bfbfbf;
+      --mdc-switch-disabled-unselected-track-color: #2a2b30;
+      --mdc-switch-disabled-unselected-handle-color: #9a9a9a;
+    }
+  }
+
+  .foot {
+    padding: 14px 24px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    display: flex; justify-content: flex-end; gap: 12px;
+    background: #1a1b1f;
+  }
+
+  .delete-container {
+    padding: 32px 24px; text-align: center;
+
+    .delete-icon { font-size: 40px; color: #ef5350; margin-bottom: 14px; }
+    h3 { margin: 0; font-size: 20px; font-weight: 700; color: #fff; }
+    p  { margin: 10px 0 22px; font-size: 15px; color: #fffdfd; }
+    .delete-actions { display: flex; justify-content: center; gap: 16px; }
+  }
+
+  mat-progress-spinner { margin-left: 6px; stroke: #fff; }
+}

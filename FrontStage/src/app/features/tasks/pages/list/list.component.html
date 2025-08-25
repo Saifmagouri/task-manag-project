@@ -1,0 +1,108 @@
+<div class="page">
+  <!-- Top bar -->
+  <header class="top">
+    <div class="left">
+      <div class="logo">🧩</div>
+      <div>
+        <h2>Mes tâches</h2>
+        <div class="muted">{{ total }} élément(s) · {{ openCount }} ouvert(s)</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <mat-form-field appearance="outline" class="search tight-field">
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput [formControl]="q" placeholder="Rechercher..." spellcheck="false" />
+  <button mat-icon-button matSuffix *ngIf="q.value" (click)="q.setValue('')" aria-label="Effacer">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+      <!-- Filter (no tick icons) -->
+      <mat-button-toggle-group
+  class="filters segmented"
+  [value]="statusFilter"
+  (change)="statusFilter = $event.value"
+  aria-label="Filtrer les tâches">
+
+  <mat-button-toggle value="all" class="pill pill-all" aria-label="Toutes les tâches">
+    <span class="dot all"></span>
+    <span>Tout</span>
+  </mat-button-toggle>
+
+  <mat-button-toggle value="open" class="pill pill-open" aria-label="Tâches ouvertes">
+    <span class="dot open"></span>
+    <span>Ouvert</span>
+  </mat-button-toggle>
+
+  <mat-button-toggle value="done" class="pill pill-done" aria-label="Tâches terminées">
+    <span class="dot done"></span>
+    <span>Terminé</span>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+
+      <button mat-stroked-button [matMenuTriggerFor]="sortMenu" class="chip-btn">
+        <mat-icon>sort</mat-icon>&nbsp;Trier
+      </button>
+      <mat-menu #sortMenu="matMenu">
+        <button mat-menu-item (click)="sortBy='alpha'"><mat-icon>sort_by_alpha</mat-icon>Alphabétique</button>
+        <button mat-menu-item (click)="sortBy='status'"><mat-icon>playlist_add_check</mat-icon>Par statut</button>
+      </mat-menu>
+
+      <button mat-flat-button color="primary" (click)="openCreate()">
+        <mat-icon>add</mat-icon>&nbsp;Ajouter
+      </button>
+    </div>
+  </header>
+
+  <!-- States -->
+  <div class="state" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" diameter="28"></mat-progress-spinner>
+  </div>
+  <div class="state err" *ngIf="!loading && error">{{ error }}</div>
+  <div class="state empty" *ngIf="!loading && !error && view.length === 0">
+    <mat-icon>inbox</mat-icon>
+    <div>Aucune tâche trouvée</div>
+    <small>Créez votre première tâche avec le bouton <b>Ajouter</b> ou ajustez vos filtres.</small>
+  </div>
+
+  <!-- Table -->
+  <section class="table" *ngIf="!loading && !error && view.length > 0">
+    <div class="row head">
+      <div class="col title">TITRE</div>
+      <div class="col desc">DESCRIPTION</div>
+      <div class="col status">STATUT</div>
+      <div class="col actions">ACTIONS</div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="row item" *ngFor="let t of view; trackBy: trackById">
+      <div class="col title">
+        <span class="dot" [class.done]="t.completed"></span>
+        <span class="txt">{{ t.title }}</span>
+      </div>
+
+      <div class="col desc">
+        <span class="muted">{{ t.description || '—' }}</span>
+      </div>
+
+      <div class="col status">
+        <!-- Text-only status pill (no icon) -->
+        <button
+          mat-stroked-button
+          class="status-pill"
+          [ngClass]="t.completed ? 'done' : 'open'"
+          (click)="toggle(t)"
+          [matTooltip]="t.completed ? 'Marquer ouvert' : 'Marquer terminé'">
+          {{ t.completed ? 'Terminé' : 'Ouvert' }}
+        </button>
+      </div>
+
+      <div class="col actions">
+        <button mat-icon-button (click)="openEdit(t)" matTooltip="Modifier"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="remove(t)" matTooltip="Supprimer"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </section>
+</div>

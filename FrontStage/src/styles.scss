@@ -1,0 +1,34 @@
+/* Global Material 3 theme */
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: dark,                // ✅ dark app
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: (
+      brand-family: 'Roboto',
+      plain-family: 'Roboto, "Helvetica Neue", Arial, sans-serif',
+    ),
+    density: 0,
+  ));
+}
+
+/* Tell the browser we’re dark */
+body {
+  color-scheme: dark;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+}
+
+html, body { height: 100%; }
+
+/* ✅ Force slide-toggle label colors globally (enabled + disabled) */
+:root {
+  --mat-slide-toggle-label-text-color: #fff;
+  --mat-slide-toggle-label-text-color-disabled: #fff;
+}

@@ -1,0 +1,110 @@
+<div class="page" *ngIf="!loading(); else skeleton">
+  <header class="head">
+    <div class="avatar">{{ avatarLetter() }}</div>
+    <div class="titles">
+      <h1>Profil</h1>
+      <p class="sub">Gérez vos informations et votre sécurité</p>
+    </div>
+  </header>
+
+  <section class="grid">
+    <!-- Profile card -->
+    <article class="card">
+      <h2>
+        <span class="icon">
+          <!-- user icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z" stroke="currentColor" stroke-width="1.5" /></svg>
+        </span>
+        Informations
+      </h2>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="form">
+        <label for="username">Nom d’utilisateur</label>
+        <div class="input">
+          <input id="username" autocomplete="username" formControlName="username"  />
+        </div>
+        <div class="hint error" *ngIf="profileForm.get('username')?.invalid && profileForm.get('username')?.touched">
+          Minimum 3 caractères.
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" [disabled]="profileForm.invalid">Sauvegarder</button>
+        </div>
+      </form>
+    </article>
+
+    <!-- Password card -->
+    <article class="card">
+      <h2>
+        <span class="icon">
+          <!-- lock icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 10V7a5 5 0 1 1 10 0v3M6 10h12v10H6z" stroke="currentColor" stroke-width="1.5" /></svg>
+        </span>
+        Changer le mot de passe
+      </h2>
+
+      <form [formGroup]="pwdForm" (ngSubmit)="changePassword()" class="form">
+        <label for="current">Mot de passe actuel</label>
+        <div class="input with-icon">
+          <input [type]="showCur() ? 'text' : 'password'" id="current" formControlName="currentPassword" autocomplete="current-password" />
+          <button type="button" class="icon-btn" (click)="toggle('cur')" aria-label="Afficher/masquer">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" /><circle cx="12" cy="12" r="3.5"/></svg>
+          </button>
+        </div>
+
+        <label for="new">Nouveau mot de passe</label>
+        <div class="input with-icon">
+          <input [type]="showNew() ? 'text' : 'password'" id="new" formControlName="newPassword" autocomplete="new-password" />
+          <button type="button" class="icon-btn" (click)="toggle('new')" aria-label="Afficher/masquer">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" /><circle cx="12" cy="12" r="3.5"/></svg>
+          </button>
+        </div>
+
+        <!-- strength bar -->
+        <div class="strength">
+          <div class="bar" [class.s1]="strength()>=1" [class.s2]="strength()>=2" [class.s3]="strength()>=3" [class.s4]="strength()>=4"></div>
+          <span class="label">
+            {{ strength()===0 ? 'Très faible' :
+               strength()===1 ? 'Faible' :
+               strength()===2 ? 'Correct' :
+               strength()===3 ? 'Bon' : 'Fort' }}
+          </span>
+        </div>
+
+        <label for="confirm">Confirmer</label>
+        <div class="input with-icon">
+          <input [type]="showConf() ? 'text' : 'password'" id="confirm" formControlName="confirm" autocomplete="new-password" />
+          <button type="button" class="icon-btn" (click)="toggle('conf')" aria-label="Afficher/masquer">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" /><circle cx="12" cy="12" r="3.5"/></svg>
+          </button>
+        </div>
+        <div class="hint error" *ngIf="pwdForm.hasError('mismatch') && pwdForm.touched">
+          Les mots de passe ne correspondent pas.
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" [disabled]="pwdForm.invalid">Mettre à jour</button>
+        </div>
+      </form>
+    </article>
+  </section>
+
+  <div class="toast success" *ngIf="msg()"><span>{{ msg() }}</span></div>
+  <div class="toast danger" *ngIf="err()"><span>{{ err() }}</span></div>
+</div>
+
+<ng-template #skeleton>
+  <div class="page">
+    <header class="head">
+      <div class="avatar sk"></div>
+      <div class="titles">
+        <div class="sk sk-line"></div>
+        <div class="sk sk-line short"></div>
+      </div>
+    </header>
+    <section class="grid">
+      <article class="card sk-card"></article>
+      <article class="card sk-card"></article>
+    </section>
+  </div>
+</ng-template>

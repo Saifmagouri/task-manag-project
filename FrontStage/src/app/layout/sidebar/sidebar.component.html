@@ -1,0 +1,36 @@
+<aside class="sidenav">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <span class="brand-text">Task Management</span>
+  </div>
+
+  <nav class="menu">
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <mat-icon>space_dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/tasks" routerLinkActive="active">
+      <mat-icon>checklist</mat-icon>
+      <span>Tasks</span>
+    </a>
+
+    <a routerLink="/profile" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+
+    <!-- ⭐ ADMIN ONLY -->
+    <a *ngIf="isAdmin$ | async" routerLink="/admin/manage-accounts" routerLinkActive="active">
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Manage Accounts</span>
+    </a>
+  </nav>
+
+  <div class="logout-section">
+  <button class="logout" (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</div>
+</aside>

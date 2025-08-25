@@ -1,0 +1,101 @@
+:host {
+  --bg1: #0f1115;
+  --bg2: #161a22;
+  --ring: #2a3040;
+  --text: #e7e9ee;
+  --muted: #9aa0a6;
+  --primary: #5b8cff;
+  --mat-sys-on-surface: #fff;
+}
+
+.auth-wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--text);
+  background:
+    radial-gradient(900px 500px at 10% -20%, #1b1f2b 0%, transparent 60%),
+    radial-gradient(800px 400px at 110% 120%, #22263a 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--ring);
+  background: #121520;
+}
+
+.card-head {
+  padding: 16px 20px;
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    .dot { width: 12px; height: 12px; border-radius: 4px; background: #10b981; }
+    h2 { margin: 0; font-size: 18px; }
+    p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+  }
+}
+
+mat-card-content { padding: 16px 20px 20px; }
+
+.form { display: grid; gap: 14px; margin-top: 10px; }
+.full { width: 100%; }
+
+.row { display: flex; justify-content: space-between; align-items: center; }
+
+.link {
+  text-decoration: none; font-size: 0.9rem; color: #c4cffc;
+  &:hover { text-decoration: underline; }
+}
+
+.btn-lg { padding: 10px 12px; font-weight: 700; }
+
+.error { color: #ff8b8b; font-size: .95rem; margin-top: 6px; }
+
+.helper {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px dashed var(--ring);
+  border-radius: 12px;
+  background: #0f1320;
+  color: #cfe0ff;
+
+  .helper-head {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    mat-icon { font-size: 18px; width: 18px; height: 18px; color: var(--primary); }
+    .spacer { flex: 1; }
+  }
+
+  .helper-grid {
+    display: grid; gap: 6px;
+    .pair { display: flex; justify-content: space-between; gap: 8px; }
+    code { background: #131a2b; padding: 2px 6px; border-radius: 6px; }
+  }
+  /* Works for both outlined & filled Material fields */
+/* Put in component SCSS or global styles.scss */
+.field-white.mat-mdc-form-field{
+  /* Material tokens (outlined + filled) */
+  --mdc-outlined-text-field-input-text-color:#fff;
+  --mdc-filled-text-field-input-text-color:#fff;
+  --mdc-outlined-text-field-label-text-color:#eaf0ff;
+  --mdc-outlined-text-field-focus-label-text-color:#fff;
+}
+
+/* Hard override to ensure white text (applies to password bullets & when toggled to text) */
+.field-white .mdc-text-field__input{
+  color:#fff !important;
+  caret-color:#fff;
+}
+.field-white .mdc-text-field__input::placeholder{
+  color:rgba(255,255,255,.85) !important;
+}
+
+/* Optional: fix Chrome autofill on dark */
+.field-white input:-webkit-autofill{
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#fff;
+  transition: background-color 100000s ease-in-out 0s; /* hide yellow bg */
+}}

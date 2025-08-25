@@ -1,0 +1,45 @@
+<div class="dashboard">
+  <h2>📊 Dashboard</h2>
+
+  <div class="cards">
+    <mat-card class="card total">
+      <mat-icon class="icon">list_alt</mat-icon>
+      <div class="info">
+        <h3>{{ stats.total }}</h3>
+        <p>Total Tasks</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="card open">
+      <mat-icon class="icon">hourglass_empty</mat-icon>
+      <div class="info">
+        <h3>{{ stats.open }}</h3>
+        <p>Open Tasks</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="card completed">
+      <mat-icon class="icon">check_circle</mat-icon>
+      <div class="info">
+        <h3>{{ stats.completed }}</h3>
+        <p>Completed</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="card rate">
+      <mat-icon class="icon">trending_up</mat-icon>
+      <div class="info">
+        <h3>{{ stats.rate }}%</h3>
+        <p>Completion Rate</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="card new">
+      <mat-icon class="icon">new_releases</mat-icon>
+      <div class="info">
+        <h3>{{ stats.newThisWeek }}</h3>
+        <p>New This Week</p>
+      </div>
+    </mat-card>
+  </div>
+</div>

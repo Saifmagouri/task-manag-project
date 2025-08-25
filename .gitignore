@@ -1,0 +1,29 @@
+﻿@"
+# General
+.DS_Store
+*.log
+tmp/
+dist/
+build/
+
+# Frontend (Angular)
+frontend/node_modules/
+frontend/.angular/
+frontend/coverage/
+frontend/.cache/
+frontend/.idea/
+frontend/.vscode/
+
+# Backend (Spring Boot)
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.gradle/
+backend/build/
+backend/.settings/
+backend/.project
+backend/.classpath
+
+# Env / Docker
+.env
+docker/*.env
+"@ | Out-File -Encoding utf8 .gitignore
