@@ -1,29 +1,28 @@
-﻿@"
 # General
 .DS_Store
 *.log
+Thumbs.db
 tmp/
-dist/
-build/
 
 # Frontend (Angular)
-frontend/node_modules/
-frontend/.angular/
-frontend/coverage/
-frontend/.cache/
-frontend/.idea/
-frontend/.vscode/
+FrontStage/node_modules/
+FrontStage/.angular/
+FrontStage/coverage/
+FrontStage/dist/
+FrontStage/.cache/
 
 # Backend (Spring Boot)
-backend/target/
-backend/.mvn/wrapper/maven-wrapper.jar
-backend/.gradle/
-backend/build/
-backend/.settings/
-backend/.project
-backend/.classpath
+stage/target/
+stage/.mvn/wrapper/maven-wrapper.jar
 
-# Env / Docker
+# IDE
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Environment
 .env
-docker/*.env
-"@ | Out-File -Encoding utf8 .gitignore
+!.env.example
+
+# Docker
+mysql_data/
